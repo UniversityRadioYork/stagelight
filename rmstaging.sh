@@ -1,7 +1,6 @@
 #!/bin/sh
 
-STAGING_D=/usr/local/etc/apache24/staging.d
-PREFIX='2013site-'
+. stagelight.inc.sh
 
 if [ "$#" -ne 1 ]
 then
@@ -10,16 +9,15 @@ then
   exit
 fi
 
-NAME="${PREFIX}$1"
-FILE="${STAGING_D}/${NAME}.conf"
+SL_prefix_name    "$1"      # -> name
+SL_file_from_name "${name}" # -> file
 
-
-if [ ! \( "${FILE}" \) ]
+if [ ! \( "${file}" \) ]
 then
-  echo "[!] Staging website ${NAME} does not exist."
+  echo "[!] Staging website ${name} does not exist."
   echo "    Please try a different name."
   exit
 fi
 
-rm $FILE
+rm $file
 
