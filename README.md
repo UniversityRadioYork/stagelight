@@ -14,13 +14,13 @@ free and public later.
 * **Example**: sudo mkstaging.sh mattbw 8000
 
 This creates a staging website entry in the Apache configuration,
-exposing a test website on ''PORT'' as
-https://urybsod.york.ac.uk/2013site-''NAME''.  It will warn you if
+exposing a test website on ``PORT`` as
+https://urybsod.york.ac.uk/2013site-``NAME``.  It will warn you if
 the port is already in use, and overwrite any previous staging
 configuration of the same name.
 
 You will need to make sure that your website copy is configured to
-launch on ''PORT'' and prefix its URLs with 2013site-''NAME''.
+launch on ``PORT`` and prefix its URLs with 2013site-``NAME``.
 
 ### lsstaging.sh
 
