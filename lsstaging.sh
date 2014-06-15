@@ -9,7 +9,8 @@ do
   if grep -q "mkstaging" "${f}"
   then
     PORT=`egrep -o 'https?:.*:[0-9]+' ${f} | cut -f 3 -d: | head -n 1`
-    echo "${NAME} valid ${PORT}"
+    DIR=`egrep -o '^# *DIR *.+' ${f} | sed 's/# *DIR *//'`
+    echo "${NAME} valid ${PORT} ${DIR}"
   else
     echo "${NAME} invalid"
   fi
