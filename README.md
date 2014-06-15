@@ -15,7 +15,7 @@ free and public later.
 
 This creates a staging website entry in the Apache configuration,
 exposing a test website on ``PORT`` as
-https://urybsod.york.ac.uk/2013site-``NAME``.  It will warn you if
+https://urybsod.york.ac.uk/2013site- ``NAME``.  It will warn you if
 the port is already in use, and overwrite any previous staging
 configuration of the same name.
 
