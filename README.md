@@ -43,6 +43,10 @@ its configured virtualenv.
 
 Removes the named staging entry.
 
+## Installation
+
+Add this directory to your PATH.
+
 ## TODO
 
 * Higher-level interface, including Apache restarting
