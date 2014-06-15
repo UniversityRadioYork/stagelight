@@ -44,3 +44,36 @@ SL_normalise_path()
 {
   path=`echo $1 | sed 's|/$||'`
 }
+
+
+# Deduces the staging website name given its config file path.
+# In:
+#     $1 - The path to the staging website's config file.
+# Out:
+#     $name - The name of the staging website (with prefix).
+SL_name_from_file()
+{
+  name=`basename $1 | sed "s/.conf//"`
+}
+
+
+# Extracts the port number from a staging website config file.
+# In:
+#     $1 - The path to the staging website's config file.
+# Out:
+#     $port - The port number of the staging website.
+SL_port_from_file()
+{
+  port=`egrep -o 'https?:.*:[0-9]+' $1 | cut -f 3 -d: | head -n 1`
+}
+
+
+# Extracts the root directory from a staging website config file.
+# In:
+#     $1 - The path to the staging website's config file.
+# Out:
+#     $dir - The directory containing the staging website.
+SL_dir_from_file()
+{
+    dir=`egrep -o '^# *DIR *.+' $1 | sed 's/# *DIR *//'`
+}

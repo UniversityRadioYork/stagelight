@@ -1,17 +1,18 @@
 #!/bin/sh
 
-STAGING_D=/usr/local/etc/apache24/staging.d
+. stagelight.inc.sh
 
 for f in ${STAGING_D}/*
 do
-  NAME=`basename ${f} | sed "s/.conf//"`
+  SL_name_from_file "${f}" # -> name
 
   if grep -q "mkstaging" "${f}"
   then
-    PORT=`egrep -o 'https?:.*:[0-9]+' ${f} | cut -f 3 -d: | head -n 1`
-    DIR=`egrep -o '^# *DIR *.+' ${f} | sed 's/# *DIR *//'`
-    echo "${NAME} valid ${PORT} ${DIR}"
+    SL_port_from_file "${f}" # -> port
+    SL_dir_from_file  "${f}" # -> dir
+
+    echo "${name} valid ${port} ${dir}"
   else
-    echo "${NAME} invalid"
+    echo "${name} invalid"
   fi
 done
