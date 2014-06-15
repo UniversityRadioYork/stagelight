@@ -10,8 +10,8 @@ free and public later.
 
 ### mkstaging.sh
 
-**Usage: sudo mkstaging.sh ''NAME'' ''PORT''** (example: sudo
-mkstaging.sh mattbw 8000)
+* **Usage**: sudo mkstaging.sh ``NAME`` ``PORT``**
+* **Example**: sudo mkstaging.sh mattbw 8000
 
 This creates a staging website entry in the Apache configuration,
 exposing a test website on ''PORT'' as
@@ -24,7 +24,7 @@ launch on ''PORT'' and prefix its URLs with 2013site-''NAME''.
 
 ### lsstaging.sh
 
-**Usage: sudo lsstaging.sh**
+* **Usage**: lsstaging.sh
 
 This lists all current staging websites and their ports.
 
