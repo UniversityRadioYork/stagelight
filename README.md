@@ -10,7 +10,7 @@ free and public later.
 
 ### mkstaging.sh
 
-* **Usage**: sudo mkstaging.sh ``NAME`` ``PORT``**
+* **Usage**: sudo mkstaging.sh ``NAME`` ``PORT``
 * **Example**: sudo mkstaging.sh mattbw 8000
 
 This creates a staging website entry in the Apache configuration,
