@@ -28,6 +28,14 @@ It will warn you if the name or port is already in use.
 You will need to make sure that your website copy is configured to
 launch on ``PORT`` and prefix its URLs with 2013site-``NAME``.
 
+### runstaging.sh
+
+* **Usage**: sudo runstaging.sh ``NAME``
+* **Example**: sudo runstaging.sh mattbw
+
+Starts the development server for the given staging entry, inside
+its configured virtualenv.
+
 ### rmstaging.sh
 
 * **Usage**: sudo rmstaging.sh ``NAME``
