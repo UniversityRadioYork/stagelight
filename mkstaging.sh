@@ -14,7 +14,7 @@ FILE="${STAGING_D}/${NAME}.conf"
 HOST="http://localhost:$2"
 
 
-if [ -e "${NAME}" ]
+if [ -e "${FILE}" ]
 then
   echo "[!] Staging website ${NAME} already exists."
   echo "    Please try a different name."
