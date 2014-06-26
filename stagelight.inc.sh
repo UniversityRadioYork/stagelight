@@ -1,5 +1,34 @@
 STAGING_D=/usr/local/etc/apache24/staging.d
 PREFIX='2013site-'
+WEBSITE="http://$(hostname).york.ac.uk"
+
+
+# Checks the script arguments to see if a staging site name has been given,
+# dies if there isn't one, and populates some variables if there is one.
+#
+# In:
+#     $1     - The original value of $#.
+#     $2     - The original value of $1.
+# Out:
+#     $uname - The unprefixed name of the staging site (the argument).
+#     $name  - The prefixed name of the staging site.
+#     $file  - The location of the staging site's config file.
+#     $url   - The WWW location of the staging site, when it is active.
+#     
+SL_check_name_argument()
+{
+  if [ "$1" -ne 1 ]
+  then
+    echo "[!] Usage: $0 NAME."
+    echo "    (eg: $0 mattbw)"
+    exit
+  fi
+
+  uname=$2
+  SL_prefix_name    "${uname}" # -> name
+  SL_file_from_name "${name}"  # -> file
+  SL_url_from_name  "${name}"  # -> url
+}
 
 
 # Applies a prefix to a name.
@@ -17,10 +46,21 @@ SL_prefix_name()
 # In:
 #     $1 - The name to be unprefixed.
 # Out:
-#     $uname - The unpreifxed name.
+#     $uname - The unprefixed name.
 SL_unprefix_name()
 {
   uname=$(echo $1 | sed "s/^${PREFIX}//")
+}
+
+
+# Deduces the URL of the given (full) staging site name.
+# In:
+#     $1 - The full name of the staging site including prefix.
+# Out:
+#     $url - The URL of the website.
+SL_url_from_name()
+{
+  url="${WEBSITE}/${1}"
 }
 
 
@@ -57,6 +97,19 @@ SL_normalise_path()
 }
 
 
+# Checks if a config file exists and, if it does, extracts data from it.
+# In:
+#     $1 - The path to the staging website's config file.
+# Out:
+#     $port - The port number of the staging website.
+#     $dir - The directory containing the staging website.
+SL_probe_config()
+{
+  SL_port_from_file $1
+  SL_dir_from_file $1
+}
+
+
 # Deduces the staging website name given its config file path.
 # In:
 #     $1 - The path to the staging website's config file.
@@ -87,4 +140,23 @@ SL_port_from_file()
 SL_dir_from_file()
 {
     dir=`egrep -o '^# *DIR *.+' $1 | sed 's/# *DIR *//'`
+}
+
+
+# Tests whether a staging site is up and running.
+#
+# In:
+#     $1 - The URL to the staging website.
+# Out:
+#     $scode  - The HTTP status code of the site: 200 is OK.
+#     $status - A human-readable summary of $scode.
+SL_test_site_up()
+{
+  scode=$(curl "${url}" -so /dev/null --write-out "%{http_code}")
+  if [ "${scode}" = "200" ]
+  then
+    status="up-${scode}"
+  else
+    status="down-${scode}"
+  fi
 }

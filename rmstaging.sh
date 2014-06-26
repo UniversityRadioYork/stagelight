@@ -2,15 +2,7 @@
 
 . stagelight.inc.sh
 
-if [ "$#" -ne 1 ]
-then
-  echo "[!] Usage: $0 NAME."
-  echo "    (eg: $0 mattbw)"
-  exit
-fi
-
-SL_prefix_name    "$1"      # -> name
-SL_file_from_name "${name}" # -> file
+SL_check_name_argument $# $1 # -> name, file
 
 if [ ! \( "${file}" \) ]
 then
