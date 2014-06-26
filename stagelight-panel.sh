@@ -9,13 +9,13 @@ main_dialog()
 {
   websites=$(lsstaging.sh | grep '^[^ ]* valid' | cut -f 1,3 -d ' ')
 
-  dialog --title "Stagelight"                                 \
-         --menu "${MAIN_DIALOG_TXT}" 0 0 0                    \
-         ""       "---- Existing Websites ----"               \
-         ${websites}                                          \
-         ""       "---- Other Actions ----"                   \
-         "Create" "(SUDO) Creates a new development website." \
-         "Exit"   "Terminates Stagelight."                    \
+  dialog --title "Stagelight"                                       \
+         --menu "${MAIN_DIALOG_TXT}" 0 0 0                          \
+         ""       "---- Existing Websites ----"                     \
+         ${websites}                                                \
+         ""       "---- Other Actions ----"                         \
+         "Create" "(SUDO) Creates a new development website entry." \
+         "Exit"   "Terminates Stagelight."                          \
          2>/tmp/dialog.ans
 
   site=$(cat /tmp/dialog.ans)
