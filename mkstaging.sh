@@ -9,29 +9,29 @@ then
   exit
 fi
 
-SL_prefix_name    "$1"      # -> name
-SL_file_from_name "${name}" # -> file
-SL_host_from_port "$2"      # -> host
-SL_normalise_path "$3"      # -> path
+SL_prefix_name            "$1"      # -> name
+SL_file_from_name_nocheck "${name}" # -> file
+SL_host_from_port         "$2"      # -> host
+SL_normalise_path         "$3"      # -> path
 
 if [ -e "${file}" ]
 then
   echo "[!] Staging website ${name} already exists."
   echo "    Please try a different name."
-  exit
+  exit 1
 fi
 
 if grep -q "${host}" ${STAGING_D}/*.conf
 then
   echo "[!] Host ${host} is already in use."
   echo "    Please try a different port number."
-  exit
+  exit 3
 fi
 
 if [ ! \( -d "${path}" \) ]
 then
   echo "[!] ${path} is not a directory."
-  exit
+  exit 4
 fi
 
 

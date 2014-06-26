@@ -65,11 +65,33 @@ SL_url_from_name()
 
 
 # Deduces the config file of the given (full) staging site name.
+#
+# Exits with status 2 if the config file does not exist.
 # In:
 #     $1 - The full name of the staging site including prefix.
 # Out:
 #     $file - The name of the file.
 SL_file_from_name()
+{
+  SL_file_from_name_nocheck ${1}
+
+  if [ ! \( -f "${file}" \) ]
+  then
+    echo "[!] Staging website ${1} does not exist."
+    echo "    Please try a different name."
+    exit 2
+  fi
+}
+
+
+# Deduces the config file of the given (full) staging site name.
+#
+# Does not check to see if the file exists.
+# In:
+#     $1 - The full name of the staging site including prefix.
+# Out:
+#     $file - The name of the file.
+SL_file_from_name_nocheck()
 {
   file="${STAGING_D}/${1}.conf"
 }
