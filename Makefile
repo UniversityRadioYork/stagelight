@@ -6,7 +6,8 @@ SCRIPTS=chkstaging.sh\
 	rmstaging.sh\
 	runstaging.sh\
 	stagelight-panel.sh\
-	stagelight.inc.sh
+	stagelight.inc.sh\
+	ulstaging.sh
 
 install: ${SCRIPTS}
 	install ${SCRIPTS} ${PREFIX}/bin
