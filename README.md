@@ -6,7 +6,26 @@ the URY development server.
 This is currently URY-private, but could be generalised and made
 free and public later.
 
+## The Frontends
+
+### stagelight-panel.sh
+
+* **Usage**: stagelight-panel.sh
+
+This is a ``dialog``-based text user interface for Stagelight, exposing
+the features of the scripts in a slightly prettier manner.
+
+It will ask for a sudo password when doing superuser-level actions.
+
 ## The Scripts
+
+### chkstaging.sh
+
+* **Usage**: chkstaging.sh ``NAME``
+* **Example**: chkstaging.sh mattbw
+
+This prints out some information about the named staging site, and goes
+into slightly more detail than ``lsstaging``.
 
 ### lsstaging.sh
 
@@ -45,11 +64,11 @@ Removes the named staging entry.
 
 ## Installation
 
-Add this directory to your PATH.
+Either add the stagelight directory to your PATH, or (as root):
+``sudo make install``
 
 ## TODO
 
 * Higher-level interface, including Apache restarting
 * Generalisation/cleanup
-* Installation
 * Open-sourcing (MIT licence?)
