@@ -13,6 +13,17 @@ SL_prefix_name()
 }
 
 
+# Removes a prefix from a name.
+# In:
+#     $1 - The name to be unprefixed.
+# Out:
+#     $uname - The unpreifxed name.
+SL_unprefix_name()
+{
+  uname=$(echo $1 | sed "s/^${PREFIX}//")
+}
+
+
 # Deduces the config file of the given (full) staging site name.
 # In:
 #     $1 - The full name of the staging site including prefix.
