@@ -1,6 +1,7 @@
 PREFIX?=/usr/local
 
-SCRIPTS=chkstaging.sh\
+SCRIPTS=cfgstaging.sh\
+	chkstaging.sh\
 	lsstaging.sh\
 	mkstaging.sh\
 	rmstaging.sh\

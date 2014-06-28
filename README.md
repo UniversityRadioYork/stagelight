@@ -21,6 +21,16 @@ It will ask for a sudo password when doing superuser-level actions.
 
 ## The Scripts
 
+### cfgstaging.sh
+
+* **Usage**: cfgstaging.sh ``NAME``
+* **Example**: cfgstaging.sh mattbw
+
+Opens the ``development.ini`` Pyramid configuration for a staging
+website in a text editor.  This respects the ``VISUAL`` and ``EDITOR``
+environment variables, but defaults to ``nano`` if those are not
+set.
+
 ### chkstaging.sh
 
 * **Usage**: chkstaging.sh ``NAME``

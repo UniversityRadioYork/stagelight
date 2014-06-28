@@ -56,6 +56,7 @@ site_panel()
          --menu "$(chkstaging.sh ${site})" 0 0 0                            \
          'Run'    'Launches this development website (if you have access).' \
          'Delete' '(SUDO) Permanently removes this development website.'    \
+         'Config' 'Opens the Pyramid config for this website in an editor.' \
          'Back'   'Go back to the list of development websites.'            \
          2>/tmp/dialog.ans
 
@@ -66,6 +67,9 @@ site_panel()
   elif [ "${answer}" = 'Delete' ]
   then
     sudo rmstaging.sh "${site}"
+  elif [ "${answer}" = 'Config' ]
+  then
+    cfgstaging.sh "${site}"
   fi
 }
 
