@@ -2,8 +2,8 @@
 
 . stagelight.inc.sh
 
-SL_check_name_argument $# $1 # -> name, file, url
-SL_probe_config ${file}      # -> port, dir
+SL_check_name_argument $# "${1}" # -> name, file, url
+SL_probe_config "${file}"        # -> port, dir
 
 if [ -n "${VISUAL}" ]
 then

@@ -2,7 +2,7 @@
 
 . stagelight.inc.sh
 
-SL_check_name_argument $# $1 # -> name, file
+SL_check_name_argument $# "${1}" # -> name, file
 
 if [ ! \( "${file}" \) ]
 then
@@ -11,5 +11,5 @@ then
   exit
 fi
 
-rm $file
+rm "${file}"
 

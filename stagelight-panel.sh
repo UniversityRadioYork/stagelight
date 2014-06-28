@@ -31,7 +31,7 @@ main_dialog()
   then
     create_panel
   else
-    site_panel ${site}
+    site_panel "${site}"
   fi
 }
 
@@ -56,8 +56,10 @@ create_panel()
 site_panel()
 {
   site=$1
+  chkresult=$(chkstaging.sh "${site}")
+
   dialog --title "${site}"                                                  \
-         --menu "$(chkstaging.sh ${site})" 0 0 0                            \
+         --menu "${chkresult}" 0 0 0                                        \
          'Run'    'Launches this development website (if you have access).' \
          'Delete' '(SUDO) Permanently removes this development website.'    \
          'Config' 'Opens the Pyramid config for this website in an editor.' \

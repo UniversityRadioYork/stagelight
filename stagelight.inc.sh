@@ -38,7 +38,7 @@ SL_check_name_argument()
 #     $name - The prefixed name.
 SL_prefix_name()
 {
-  name="${PREFIX}$1"
+  name="${PREFIX}${1}"
 }
 
 
@@ -49,7 +49,7 @@ SL_prefix_name()
 #     $uname - The unprefixed name.
 SL_unprefix_name()
 {
-  uname=$(echo $1 | sed "s/^${PREFIX}//")
+  uname="${1#${PREFIX}}"
 }
 
 
@@ -73,7 +73,7 @@ SL_url_from_name()
 #     $file - The name of the file.
 SL_file_from_name()
 {
-  SL_file_from_name_nocheck ${1}
+  SL_file_from_name_nocheck "${1}"
 
   if [ ! \( -f "${file}" \) ]
   then
@@ -104,7 +104,7 @@ SL_file_from_name_nocheck()
 #     $host - The full host (eg http://localhost:PORT).
 SL_host_from_port()
 {
-  host="http://localhost:$1"
+  host="http://localhost:${1}"
 }
 
 
@@ -115,7 +115,7 @@ SL_host_from_port()
 #     $path - The path with no trailing slash, etc.
 SL_normalise_path()
 {
-  path=`echo $1 | sed 's|/$||'`
+  path="${1%/}"
 }
 
 
@@ -127,8 +127,8 @@ SL_normalise_path()
 #     $dir - The directory containing the staging website.
 SL_probe_config()
 {
-  SL_port_from_file $1
-  SL_dir_from_file $1
+  SL_port_from_file "${1}"
+  SL_dir_from_file "${1}"
 }
 
 
@@ -139,7 +139,8 @@ SL_probe_config()
 #     $name - The name of the staging website (with prefix).
 SL_name_from_file()
 {
-  name=`basename $1 | sed "s/.conf//"`
+  name=$(basename "${1}")
+  name=${name%.conf}
 }
 
 
@@ -150,7 +151,7 @@ SL_name_from_file()
 #     $port - The port number of the staging website.
 SL_port_from_file()
 {
-  port=`egrep -o 'https?:.*:[0-9]+' $1 | cut -f 3 -d: | head -n 1`
+  port=$(egrep -o 'https?:.*:[0-9]+' "${1}" | cut -f 3 -d: | head -n 1)
 }
 
 
@@ -161,7 +162,7 @@ SL_port_from_file()
 #     $dir - The directory containing the staging website.
 SL_dir_from_file()
 {
-    dir=`egrep -o '^# *DIR *.+' $1 | sed 's/# *DIR *//'`
+    dir=$(egrep -o '^# *DIR *.+' "${1}" | sed 's/# *DIR *//')
 }
 
 

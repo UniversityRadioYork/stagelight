@@ -2,7 +2,7 @@
 
 . stagelight.inc.sh
 
-for f in ${STAGING_D}/*
+for f in "${STAGING_D}"/*
 do
   SL_name_from_file "${f}"    # -> name
   SL_unprefix_name  "${name}" # -> uname
