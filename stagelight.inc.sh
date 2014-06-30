@@ -1,6 +1,18 @@
-STAGING_D=/usr/local/etc/apache24/staging.d
-PREFIX='2013site-'
-WEBSITE="http://$(hostname).york.ac.uk"
+# Source the stagelight config first, and die if it couldn't be found.
+for loc in "/etc" "/usr/etc" "/usr/local/etc" "."
+do
+  if [ -f "${loc}/stagelightrc" ]
+  then
+    . "${loc}/stagelightrc"
+  fi
+done
+
+if [ -z "${STAGING_D}" ]
+then
+  echo "[!] Couldn't load Stagelight configuration."
+  echo "    Check the Stagelight README for details."
+  exit
+fi
 
 
 # Checks the script arguments to see if a staging site name has been given,

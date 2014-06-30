@@ -85,8 +85,13 @@ Web page.
 
 ## Installation
 
-Either add the stagelight directory to your PATH, or (as root):
-``sudo make install``
+1. Either add the stagelight directory to your PATH, or (as root):
+   ``sudo make install``
+
+2. Copy ``stagelightrc.example`` to your ``/etc`` or
+   ``/usr/local/etc`` directory as ``stagelightrc``, editing to
+   suit your configuration.
+
 
 ## TODO
 

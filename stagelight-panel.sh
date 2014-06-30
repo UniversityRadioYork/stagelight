@@ -1,5 +1,7 @@
 #!/bin/sh
 
+. stagelight.inc.sh
+
 running='yes'
 
 MAIN_DIALOG_TXT="Choose an existing development website, or create a new one."
@@ -26,7 +28,7 @@ main_dialog()
     running='no'
   elif [ "${site}" = "Boot" ]
   then
-    wget https://urybsod.york.ac.uk/website.sh && sh ./website.sh
+    wget "${BOOTSTRAP}" && sh "${BOOTSTRAP_FN}"
   elif [ "${site}" = "Create" ]
   then
     create_panel

@@ -1,0 +1,34 @@
+# Stagelight configuration.
+#
+# Edit this to match your staging environment's configuration.  Afterwards,
+# copy this to /etc, /usr/etc, /usr/local/etc, or the directory from which you
+# invoke Stagelight as 'stagelightrc'.
+#
+# This is a shell script sourced by all Stagelight tools: normal POSIX shell
+# syntax works here.
+
+# The location of the Apache configuration directory where the staging website
+# config files will live.  This must be set up to be read by Apache.
+STAGING_D='/path/to/apache/config/staging.d'
+
+# The prefix added to each staging website name to make up its location in the
+# staging website URL namespace.
+PREFIX='2013site-'
+
+# The root of the staging website URL namespace.
+# Each staging website has the URL "${WEBSITE}/${PREFIX}${name}", where ${name}
+# is the staging website's unprefixed name.
+WEBSITE="http://$(hostname).domain"
+
+# The location of the shell script that bootstraps a copy of the website.
+# This comes in two parts, the filename and the full URL.
+BOOTSTRAP_FN="website.sh"
+BOOTSTRAP="${WEBSITE}/${BOOTSTRAP_FN}"
+
+# The location of the development site Pyramid configuration, relative to a
+# development website's root.
+WEBSITE_CFG="config/local/development.ini"
+
+# The location of the development site run script, relative to a development
+# website's root.
+WEBSITE_RUN="scripts/run-development.sh"

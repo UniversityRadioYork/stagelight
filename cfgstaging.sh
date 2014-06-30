@@ -15,4 +15,4 @@ else
 	edit=nano
 fi
 
-${edit} "${dir}/config/local/development.ini"
+${edit} "${dir}/${WEBSITE_CFG}"
