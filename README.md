@@ -3,8 +3,8 @@
 A collection of scripts to ease making testing/staging websites on
 the URY development server.
 
-This is currently URY-private, but could be generalised and made
-free and public later.
+Licenced under the MIT licence, just in case anyone else finds a
+use for it!
 
 
 ## The Frontends
