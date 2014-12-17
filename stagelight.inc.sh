@@ -187,7 +187,8 @@ SL_dir_from_file()
 #     $status - A human-readable summary of $scode.
 SL_test_site_up()
 {
-  scode=$(curl "${url}" -so /dev/null --write-out "%{http_code}")
+  # Allow up to two seconds for a response.
+  scode=$(curl -m2 "${url}" -so /dev/null --write-out "%{http_code}")
   if [ "${scode}" = "200" ]
   then
     status="up-${scode}"
