@@ -9,6 +9,8 @@ MAIN_DIALOG_TXT="Choose an existing development website, or create a new one."
 
 main_dialog()
 {
+  tempfile=`mktemp`
+
   websites=$(lsstaging.sh | grep '^[^ ]* valid' | cut -f 1,3 -d ' ')
 
   dialog --title "Stagelight"                                               \
@@ -19,9 +21,9 @@ main_dialog()
          "Boot"   "Bootstraps a copy of the website code (in ./2013-site)." \
          "Create" "(SUDO) Creates a new development website entry."         \
          "Exit"   "Terminates Stagelight."                                  \
-         2>/tmp/dialog.ans
+         2>"${tempfile}"
 
-  site=$(cat /tmp/dialog.ans)
+  site=$(cat "${tempfile}")
 
   if [ \( -z "${site}" \) -o \( "$site" = "Exit" \) ]
   then
@@ -40,13 +42,15 @@ main_dialog()
 
 create_panel()
 {
+  tempfile=`mktemp`
+
   dialog --title "Create Staging Website Entry"                                \
          --form  "Specify a name, port, and location on the filesystem." 0 0 0 \
          "Name (eg 'mattbw'):" 1 1 "$(whoami)"         1 21 30 0               \
          "Port (0-65535):    " 2 1 "8000"              2 21 5  0               \
          "Path to site copy: " 3 1 "${HOME}/2013-site" 3 21 30 0               \
-         2>/tmp/dialog.ans
-  result=$(xargs sudo mkstaging.sh </tmp/dialog.ans)
+         2>"${tempfile}"
+  result=$(xargs sudo mkstaging.sh <"${tempfile}")
   if [ $? -ne 0 ]
   then
     dialog --title  "Error" \
@@ -57,6 +61,7 @@ create_panel()
 
 site_panel()
 {
+  tempfile=`mktemp`
   site=$1
   chkresult=$(chkstaging.sh "${site}")
 
@@ -66,9 +71,9 @@ site_panel()
          'Delete' '(SUDO) Permanently removes this development website.'    \
          'Config' 'Opens the Pyramid config for this website in an editor.' \
          'Back'   'Go back to the list of development websites.'            \
-         2>/tmp/dialog.ans
+         2>"${tempfile}"
 
-  answer=$(cat /tmp/dialog.ans)
+  answer=$(cat "${tempfile}")
   if [ "${answer}" = 'Run' ]
   then
     runstaging.sh "${site}"
