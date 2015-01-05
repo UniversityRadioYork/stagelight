@@ -2,7 +2,7 @@
 
 . stagelight.inc.sh
 
-running='yes'
+panel='main'
 
 MAIN_DIALOG_TXT="Welcome to the Stagelight main menu.\n\
 \n
@@ -14,7 +14,7 @@ SITES_DIALOG_TXT="Choose an existing development website.\n\
 Alternatively, select 'Back' to return to the main menu."
 
 
-main_dialog()
+main_panel()
 {
   tempfile=$(mktemp)
 
@@ -28,19 +28,16 @@ main_dialog()
 
   opt=$(cat "${tempfile}")
 
-  if [ \( -z "${opt}" \) -o \( "$opt" = "Exit" \) ]
-  then
-    running='no'
-  elif [ "${opt}" = "Sites" ]
-  then
-    sites_panel
-  elif [ "${opt}" = "Boot" ]
-  then
-    wget "${BOOTSTRAP}" && sh "${BOOTSTRAP_FN}"
-  elif [ "${opt}" = "Create" ]
-  then
-    create_panel
-  fi
+  case "${opt}" in
+    'Sites'  ) panel='sites' ;;
+    'Boot'   )
+      wget "${BOOTSTRAP}" && sh "${BOOTSTRAP_FN}"
+      panel='main'
+      ;;
+    'Create' ) panel='create' ;;
+    'Exit'   ) panel='quit'   ;;
+    *        ) panel='quit'   ;;
+  esac
 }
 
 sites_panel()
@@ -58,15 +55,18 @@ sites_panel()
          2>"${tempfile}"
 
   site=$(cat "${tempfile}")
-  if [ \( -n "${site}" \) -a \( "$site" != "Back" \) ]
-  then
-    site_panel "${site}"
-  fi
+  
+  case "${site}" in
+    'Back' ) panel='main' ;;
+    ''     ) panel='main' ;;
+    *      ) panel='site' ;;
+  esac
 }
 
 create_panel()
 {
   tempfile=$(mktemp)
+  panel='main'
 
   dialog --title "Create Staging Website Entry"                                \
          --form  "Specify a name, port, and location on the filesystem." 0 0 0 \
@@ -83,10 +83,10 @@ create_panel()
 }
 
 
+# Expects $site to be set to the correct site.
 site_panel()
 {
   tempfile=$(mktemp)
-  site=$1
   chkresult=$(chkstaging.sh "${site}")
 
   dialog --title "${site}"                                                  \
@@ -97,22 +97,24 @@ site_panel()
          'Back'   'Go back to the list of development websites.'            \
          2>"${tempfile}"
 
-  answer=$(cat "${tempfile}")
-  if [ "${answer}" = 'Run' ]
-  then
-    runstaging.sh "${site}"
-  elif [ "${answer}" = 'Delete' ]
-  then
-    sudo rmstaging.sh "${site}"
-  elif [ "${answer}" = 'Config' ]
-  then
-    cfgstaging.sh "${site}"
-  fi
+  case $(cat "${tempfile}") in
+    'Run'    ) runstaging.sh "${site}"     ;;
+    'Delete' ) sudo rmstaging.sh "${site}" ;;
+    'Config' ) cfgstaging.sh "${site}"     ;;
+    'Back'   ) panel='sites'               ;;
+    *        ) panel='sites'               ;;
+  esac
 }
 
 
 # Main loop
-while [ "$running" = 'yes' ]
+while [ "${panel}" != 'quit' ]
 do
-  main_dialog
+  case ${panel} in
+    'main'   ) main_panel   ;;
+    'sites'  ) sites_panel  ;;
+    'site'   ) site_panel   ;;
+    'create' ) create_panel ;;
+    *        ) echo "bug: unknown panel: ${panel}";;
+  esac
 done
