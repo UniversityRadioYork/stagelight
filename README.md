@@ -61,6 +61,12 @@ It will warn you if the name or port is already in use.
 You will need to make sure that your website copy is configured to
 launch on ``PORT`` and prefix its URLs with 2013site-``NAME``.
 
+### numstaging.sh
+
+* **Usage**: numstaging.sh
+
+This highly exciting script counts the number of staging websites.
+
 ### runstaging.sh
 
 * **Usage**: sudo runstaging.sh ``NAME``
