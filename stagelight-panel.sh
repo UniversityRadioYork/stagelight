@@ -47,6 +47,7 @@ sites_panel()
 {
   tempfile=`mktemp`
 
+  echo "Fetching website information.  This may take a while..."
   websites=$(lsstaging.sh | grep '^[^ ]* valid' | cut -f 1,3 -d ' ')
   dialog --title "Sites"                        \
          --menu "${SITES_DIALOG_TXT}" 0 0 0      \
