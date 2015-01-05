@@ -92,6 +92,7 @@ site_panel()
   dialog --title "${site}"                                                  \
          --menu "${chkresult}" 0 0 0                                        \
          'Run'    'Launches this development website (if you have access).' \
+         'Shell'  'Launches Bash inside the website virtualenv.'            \
          'Delete' '(SUDO) Permanently removes this development website.'    \
          'Config' 'Opens the Pyramid config for this website in an editor.' \
          'Back'   'Go back to the list of development websites.'            \
@@ -99,6 +100,7 @@ site_panel()
 
   case $(cat "${tempfile}") in
     'Run'    ) runstaging.sh "${site}"     ;;
+    'Shell'  ) bashstaging.sh "${site}"    ;;
     'Delete' ) sudo rmstaging.sh "${site}" ;;
     'Config' ) cfgstaging.sh "${site}"     ;;
     'Back'   ) panel='sites'               ;;
