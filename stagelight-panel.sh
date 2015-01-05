@@ -16,7 +16,7 @@ Alternatively, select 'Back' to return to the main menu."
 
 main_dialog()
 {
-  tempfile=`mktemp`
+  tempfile=$(mktemp)
 
   dialog --title "Stagelight"                                               \
          --menu "${MAIN_DIALOG_TXT}" 0 0 0                                  \
@@ -45,7 +45,7 @@ main_dialog()
 
 sites_panel()
 {
-  tempfile=`mktemp`
+  tempfile=$(mktemp)
 
   echo "Fetching website information.  This may take a while..."
   websites=$(lsstaging.sh | grep '^[^ ]* valid' | cut -f 1,3 -d ' ')
@@ -66,7 +66,7 @@ sites_panel()
 
 create_panel()
 {
-  tempfile=`mktemp`
+  tempfile=$(mktemp)
 
   dialog --title "Create Staging Website Entry"                                \
          --form  "Specify a name, port, and location on the filesystem." 0 0 0 \
@@ -85,7 +85,7 @@ create_panel()
 
 site_panel()
 {
-  tempfile=`mktemp`
+  tempfile=$(mktemp)
   site=$1
   chkresult=$(chkstaging.sh "${site}")
 
