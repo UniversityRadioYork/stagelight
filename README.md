@@ -21,6 +21,16 @@ It will ask for a sudo password when doing superuser-level actions.
 
 ## The Scripts
 
+### bashstaging.sh
+
+* **Usage**: bashstaging.sh ``NAME``
+* **Example**: bashstaging.sh mattbw
+
+Opens GNU Bash (ew) inside the virtual environment of the named
+staging website.  Since this uses the virtualenv activator as its
+RC file (instead of your Bash profile), this is probably only useful
+for simple trips into the virtualenv.
+
 ### cfgstaging.sh
 
 * **Usage**: cfgstaging.sh ``NAME``
