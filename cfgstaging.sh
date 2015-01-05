@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# cfgstaging.sh - open configuration of given website
+#
+# usage: cfgstaging.sh SITENAME
+
 . stagelight.inc.sh
 
 SL_check_name_argument $# "${1}" # -> name, file, url

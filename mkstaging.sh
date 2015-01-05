@@ -1,10 +1,14 @@
 #!/bin/sh
 
+# mkstaging.sh - make staging website
+#
+# usage: mkstaging.sh SITENAME PORT DIRECTORY
+
 . stagelight.inc.sh
 
 if [ "$#" -ne 3 ]
 then
-  echo "[!] Usage: $0 name PORT DIRECTORY."
+  echo "[!] Usage: $0 SITENAME PORT DIRECTORY."
   echo "    (eg: $0 mattbw 8000 ~/2013site)"
   exit
 fi

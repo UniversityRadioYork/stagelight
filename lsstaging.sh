@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# lsstaging.sh - list staging websites and their status
+#
+# usage: lsstaging.sh
+
 . stagelight.inc.sh
 
 for f in "${STAGING_D}"/*

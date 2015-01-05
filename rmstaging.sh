@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# rmstaging.sh - remove staging website
+#
+# usage: rmstaging.sh SITENAME
+
 . stagelight.inc.sh
 
 SL_check_name_argument $# "${1}" # -> name, file

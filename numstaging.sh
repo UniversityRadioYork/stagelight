@@ -2,7 +2,7 @@
 
 # numstaging.sh - prints number of staging websites
 #
-# Usage: numstaging.sh
+# usage: numstaging.sh
 
 . stagelight.inc.sh
 

@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# chkstaging.sh - detailed information about staging website
+#
+# usage: chkstaging.sh SITENAME
+
 . stagelight.inc.sh
 
 SL_check_name_argument $# "${1}" # -> name, file, url
