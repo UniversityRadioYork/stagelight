@@ -4,41 +4,64 @@
 
 running='yes'
 
-MAIN_DIALOG_TXT="Choose an existing development website, or create a new one."
+MAIN_DIALOG_TXT="Welcome to the Stagelight main menu.\n\
+\n
+From here, you can see the staging websites set up on this server, \
+or create a new one."
+
+SITES_DIALOG_TXT="Choose an existing development website.\n\
+\
+Alternatively, select 'Back' to return to the main menu."
 
 
 main_dialog()
 {
   tempfile=`mktemp`
 
-  websites=$(lsstaging.sh | grep '^[^ ]* valid' | cut -f 1,3 -d ' ')
-
   dialog --title "Stagelight"                                               \
          --menu "${MAIN_DIALOG_TXT}" 0 0 0                                  \
-         ""       "---- Existing Websites ----"                             \
-         ${websites}                                                        \
-         ""       "---- Other Actions ----"                                 \
+         "Sites"  "View, and work with, existing staging websites."         \
          "Boot"   "Bootstraps a copy of the website code (in ./2013-site)." \
          "Create" "(SUDO) Creates a new development website entry."         \
          "Exit"   "Terminates Stagelight."                                  \
          2>"${tempfile}"
 
-  site=$(cat "${tempfile}")
+  opt=$(cat "${tempfile}")
 
-  if [ \( -z "${site}" \) -o \( "$site" = "Exit" \) ]
+  if [ \( -z "${opt}" \) -o \( "$opt" = "Exit" \) ]
   then
     running='no'
-  elif [ "${site}" = "Boot" ]
+  elif [ "${opt}" = "Sites" ]
+  then
+    sites_panel
+  elif [ "${opt}" = "Boot" ]
   then
     wget "${BOOTSTRAP}" && sh "${BOOTSTRAP_FN}"
-  elif [ "${site}" = "Create" ]
+  elif [ "${opt}" = "Create" ]
   then
     create_panel
-  else
-    site_panel "${site}"
   fi
 }
 
+sites_panel()
+{
+  tempfile=`mktemp`
+
+  websites=$(lsstaging.sh | grep '^[^ ]* valid' | cut -f 1,3 -d ' ')
+  dialog --title "Sites"                        \
+         --menu "${SITES_DIALOG_TXT}" 0 0 0      \
+         ""       "---- Existing Websites ----" \
+         ${websites}                            \
+         ""       "---- Other Actions ----"     \
+         "Back"   "Go back to the main menu."   \
+         2>"${tempfile}"
+
+  site=$(cat "${tempfile}")
+  if [ \( -n "${site}" \) -a \( "$site" != "Back" \) ]
+  then
+    site_panel "${site}"
+  fi
+}
 
 create_panel()
 {
